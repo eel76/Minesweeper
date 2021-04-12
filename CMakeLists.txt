@@ -85,10 +85,5 @@ target_include_directories (
   )
 
 #include (FetchContent)
-
-#set (FETCHCONTENT_UPDATES_DISCONNECTED ON)
-
-#FetchContent_Declare (feedback GIT_REPOSITORY "https://gitlab.volumegraphics.com/reinbach/feedback.git")
-#FetchContent_MakeAvailable(feedback)
-
-#Feedback_Add (imperative_calisthenics RULES "imperative_calisthenics.json" WORKFLOW "contestant.json"  DIRECTORIES "${CMAKE_CURRENT_SOURCE_DIR}")
+#FetchContent_Declare (ic SOURCE_DIR "${CMAKE_CURRENT_LIST_DIR}/../imperative-calisthenics")
+#FetchContent_MakeAvailable(ic)
