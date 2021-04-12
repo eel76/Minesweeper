@@ -8,7 +8,6 @@ add_executable (
   )
 
 target_sources (${PROJECT_NAME} PRIVATE
-  include/ask.h
   include/board.h
   include/cell.h
   include/cells.h
@@ -16,15 +15,15 @@ target_sources (${PROJECT_NAME} PRIVATE
   include/columns.h
   include/combos.h
   include/concealed.h
+  include/console/ask.h
+  include/console/getline.h
+  include/console/print.h
   include/deadly.h
   include/filter.h
-  include/getline.h
   include/group.h
   include/hazard.h
   include/marked.h
   include/mined.h
-  include/game/play.h
-  include/io/print.h
   include/move/mark.h
   include/move/parse.h
   include/move/reveal.h
@@ -35,7 +34,8 @@ target_sources (${PROJECT_NAME} PRIVATE
   include/player/choose.h
   include/player/computer.h
   include/player/human.h
-  include/player.h
+  include/player/play.h
+  include/player/player.h
   include/position.h
   include/positions.h
   include/preparation.h
@@ -54,15 +54,15 @@ target_sources (${PROJECT_NAME} PRIVATE
   src/column.cpp
   src/columns.cpp
   src/combos.cpp
-  src/game/play.cpp
-  src/io/print.cpp
+  src/console/getline.cpp
+  src/console/print.cpp
   src/move/mark.cpp
   src/move/parse.cpp
   src/move/reveal.cpp
   src/player/choose.cpp
   src/player/computer.cpp
+  src/player/play.cpp
   src/filter.cpp
-  src/getline.cpp
   src/group.cpp
   src/player/human.cpp
   src/main.cpp
@@ -83,3 +83,12 @@ target_include_directories (
   ${PROJECT_NAME}
   PRIVATE include
   )
+
+#include (FetchContent)
+
+#set (FETCHCONTENT_UPDATES_DISCONNECTED ON)
+
+#FetchContent_Declare (feedback GIT_REPOSITORY "https://gitlab.volumegraphics.com/reinbach/feedback.git")
+#FetchContent_MakeAvailable(feedback)
+
+#Feedback_Add (imperative_calisthenics RULES "imperative_calisthenics.json" WORKFLOW "contestant.json"  DIRECTORIES "${CMAKE_CURRENT_SOURCE_DIR}")

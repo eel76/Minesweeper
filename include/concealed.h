@@ -3,6 +3,6 @@
 
 namespace minesweeper {
   inline auto concealed(Cells cells) -> Cells {
-    return cells | only(State::Concealed);
+    return select(only(State::Concealed), cells);
   }
 }

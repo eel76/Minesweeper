@@ -1,7 +1,8 @@
-#include "getline.h"
+#include "console/getline.h"
+
 #include <iostream>
 
-auto minesweeper::getline() -> std::string {
+auto minesweeper::console::getline() -> std::string {
   auto line = std::string{};
   getline(std::cin, line);
 

@@ -1,7 +1,6 @@
 #pragma once
 #include "severity.h"
 #include "state.h"
-
 #include <utility>
 
 namespace minesweeper {

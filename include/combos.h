@@ -4,5 +4,5 @@
 #include "rows.h"
 
 namespace minesweeper {
-  Positions combos(Rows rows, Columns columns);
+  Positions generatePositions(Rows rows, Columns columns);
 }

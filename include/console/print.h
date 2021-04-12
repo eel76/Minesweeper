@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
 
-namespace minesweeper::io {
+namespace minesweeper::console {
   void print(std::string const& text);
 }

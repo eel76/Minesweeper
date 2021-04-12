@@ -1,6 +1,6 @@
-#include "game/play.h"
+#include "player/play.h"
 
-#include "ask.h"
+#include "console/ask.h"
 #include "cells.h"
 #include "deadly.h"
 #include "group.h"
@@ -10,20 +10,20 @@
 
 using namespace std::string_literals;
 
-namespace minesweeper::game { namespace {
+namespace minesweeper::player { namespace {
 
   void print(Board board) {
     for (auto&& [row, cells] : byRow(cellsOf(board)))
-      io::print(to_string(cells) + "\n"s);
+      console::print(to_string(cells) + "\n"s);
 
     auto const countdown =
-    size(cellsOf(board) | isDeadly()) - size(cellsOf(board) | marked());
-    io::print("Mines left: "s + std::to_string(countdown) + "\n"s);
+    size(select (isDeadly(), cellsOf(board))) - size(select (marked(), cellsOf(board)));
+    console::print("Mines left: "s + std::to_string(countdown) + "\n"s);
   }
 
   void printIf(std::string const& text, bool condition) {
     if (condition)
-      io::print(text);
+      console::print(text);
   }
 
   auto perform(Move move, Board board) -> Board {
@@ -37,12 +37,12 @@ namespace minesweeper::game { namespace {
   }
 }}
 
-void minesweeper::game::play(Player player, Board board) {
-  while (!isLost(board) && !isWon(board))
+void minesweeper::player::play(Player player, Board board) {
+  while (! isLost(board) && ! isWon(board))
     board = doMove(player, board);
 
-  print(reveal(board, cellsOf(board) | isDeadly()));
+  print(reveal(board, select (isDeadly(), cellsOf(board))));
   printIf("Game lost :-(\n"s, isLost(board));
   printIf("Game won :-)\n"s, isWon(board));
-  askString("Press ENTER to quit...");
+  console::ask("Press ENTER to quit...");
 }

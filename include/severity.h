@@ -1,18 +1,8 @@
 #pragma once
-#include "hazard.h"
-#include <map>
+#include "mines.h"
 
 namespace minesweeper {
-  using Mines = std::map<Hazard, int>;
-
-  inline Mines mined(Mines mines, Hazard hazard) {
-    mines[hazard]++;
-    return mines;
-  }
-  inline bool isDeadly(Mines mines) {
-    return mines[Hazard::Deadly] != 0;
-  }
-  inline bool isNegligible(Mines mines) {
-    return mines.empty();
-  }
+  Mines mined(Mines mines, Hazard hazard);
+  bool isDeadly(Mines mines);
+  bool isNegligible(Mines mines);
 }

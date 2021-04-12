@@ -4,5 +4,5 @@
 #include "rows.h"
 
 namespace minesweeper {
-  Board makeBoard(Rows rows, Columns columns);
+  Board generateBoard(Rows rows, Columns columns);
 }

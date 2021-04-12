@@ -1,11 +1,14 @@
 #include "mined.h"
-#include "game/play.h"
 #include "player/choose.h"
+#include "player/play.h"
 #include "preparation.h"
 
-int main() {
-  using namespace minesweeper;
+using namespace minesweeper;
 
-  auto const board = mined(makeBoard(9_rows, 9_columns), 10);
-  game::play(player::choose(), board);
+int main() {
+  auto const rows    = generateRows(9);
+  auto const columns = generateColumns(9);
+  auto const board   = generateBoard(rows, columns);
+
+  player::play(player::choose(), mined(board, 10));
 }

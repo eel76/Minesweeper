@@ -10,7 +10,7 @@
 #include <random>
 
 auto minesweeper::mined(Board board, Cell cell) -> Board {
-  for (auto neighbor : cellsOf(board) | neighborOf(cell))
+  for (auto neighbor : select(neighborOf(cell), cellsOf(board)))
     board[position(neighbor)] = mined(threat(neighbor), Hazard::Nearby);
 
   board[position(cell)] = mined(board[position(cell)], Hazard::Deadly);
@@ -18,10 +18,10 @@ auto minesweeper::mined(Board board, Cell cell) -> Board {
 }
 
 auto minesweeper::mined(Board board, unsigned count) -> Board {
-  auto cells = concealed(cellsOf(board)) | !isDeadly();
+  auto cells = concealed(select (not (isDeadly()), cellsOf(board)));
   shuffle(begin(cells), end(cells), std::ranlux48{ std::random_device{}() });
 
-  for (auto cell : cells | take(count))
+  for (auto cell : select (take(count), cells))
     board = mined(board, cell);
 
   return board;

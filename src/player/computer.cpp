@@ -16,30 +16,42 @@
 
 namespace minesweeper { namespace {
 
+  auto count(Filter test, Cells cells) {
+    return size(select(test, cells));
+  }
+
+  auto neighborsOf(Cell cell, Board board) {
+    return select(neighborOf(cell), cellsOf(board));
+  }
+
+  auto hintsOf(Cell cell, Board board) {
+    return select(revealed(), neighborsOf(cell, board));
+  }
+
   Filter threatMarkable(Board board) {
     return [board](auto cell) {
-      auto const neighbors = cellsOf(board) | neighborOf(cell);
-      return size(neighbors | isDeadly()) == size(neighbors | !revealed());
+      auto const neighbors = neighborsOf(cell, board);
+      return count(isDeadly(), neighbors) == count (not(revealed()), neighbors);
     };
   }
 
   Filter threatMarked(Board board) {
     return [board](auto cell) {
-      auto const neighbors = cellsOf(board) | neighborOf(cell);
-      return size(neighbors | isDeadly()) == size(neighbors | marked());
+      auto const neighbors = neighborsOf(cell, board);
+      return count(isDeadly(), neighbors) == count (marked(), neighbors);
     };
   }
 
   Filter markMissing(Board board) {
     return [board](auto cell) {
-      auto const hints = cellsOf(board) | revealed() | neighborOf(cell);
+      auto const hints = hintsOf(cell, board);
       return any_of(begin(hints), end(hints), threatMarkable(board));
     };
   }
 
   Filter safe(Board board) {
     return [board](auto cell) {
-      auto const hints = cellsOf(board) | revealed() | neighborOf(cell);
+      auto const hints = hintsOf(cell, board);
       return any_of(begin(hints), end(hints), threatMarked(board));
     };
   }
@@ -54,8 +66,8 @@ namespace minesweeper { namespace {
     if (concealedCells.empty())
       throw;
 
-    if (auto cells = concealedCells | markMissing(board) | take (1); !cells.empty())
-      return move::mark(position(cells.front()));
+    if (auto cells = select (take (1), select (markMissing(board), concealedCells)); !cells.empty())
+      return move::mark(position(cells[0]));
 
     return move::reveal(position(partition(concealedCells, safe(board))[0]));
   }

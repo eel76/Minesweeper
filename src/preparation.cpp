@@ -1,10 +1,10 @@
 #include "preparation.h"
 #include "combos.h"
 
-auto minesweeper::makeBoard(Rows rows, Columns columns) -> Board {
+auto minesweeper::generateBoard(Rows rows, Columns columns) -> Board {
   auto board = Board{};
 
-  for (auto position : combos(rows, columns))
+  for (auto position : generatePositions(rows, columns))
     board[position] = Threat{};
 
   return board;
