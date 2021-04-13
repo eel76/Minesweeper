@@ -45,5 +45,4 @@ void minesweeper::play(Player player, Board board) {
   print(reveal(board, select (isDeadly(), cellsOf(board))));
   printIf("Game lost :-(\n"s, isLost(board));
   printIf("Game won :-)\n"s, isWon(board));
-  ask("Press ENTER to quit...");
 }
