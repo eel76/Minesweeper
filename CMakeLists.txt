@@ -84,6 +84,6 @@ target_include_directories (
   PRIVATE include
   )
 
-#include (FetchContent)
-#FetchContent_Declare (ic SOURCE_DIR "${CMAKE_CURRENT_LIST_DIR}/../imperative-calisthenics")
-#FetchContent_MakeAvailable(ic)
+if (IS_DIRECTORY "${CMAKE_CURRENT_LIST_DIR}/../imperative-calisthenics")
+  add_subdirectory ("${CMAKE_CURRENT_LIST_DIR}/../imperative-calisthenics" "${CMAKE_CURRENT_BINARY_DIR}/imperative-calisthenics")
+endif ()
