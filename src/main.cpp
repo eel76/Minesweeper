@@ -1,6 +1,6 @@
 #include "mined.h"
-#include "player/choose.h"
-#include "player/play.h"
+#include "choose.h"
+#include "play.h"
 #include "preparation.h"
 
 using namespace minesweeper;
@@ -10,5 +10,5 @@ int main() {
   auto const columns = generateColumns(9);
   auto const board   = generateBoard(rows, columns);
 
-  player::play(player::choose(), mined(board, 10));
+  play(choose(), mined(board, 10));
 }

@@ -1,4 +1,4 @@
-#include "player/computer.h"
+#include "computer.h"
 
 #include "concealed.h"
 #include "deadly.h"
@@ -73,6 +73,6 @@ namespace minesweeper { namespace {
   }
 }}
 
-auto minesweeper::player::computer() -> Player {
+auto minesweeper::computer() -> Player {
   return [](auto board) { return computerMove(board); };
 }

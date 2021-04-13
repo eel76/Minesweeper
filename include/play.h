@@ -1,7 +1,7 @@
 #pragma once
 #include "board.h"
-#include "player/player.h"
+#include "player.h"
 
-namespace minesweeper::player {
+namespace minesweeper {
   void play(Player player, Board board);
 }

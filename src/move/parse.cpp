@@ -2,7 +2,7 @@
 
 #include "move/mark.h"
 #include "move/reveal.h"
-#include "console/print.h"
+#include "print.h"
 
 #include <functional>
 #include <map>
@@ -14,7 +14,7 @@ using namespace std::string_literals;
 namespace minesweeper::move { namespace {
   auto invalid(std::string text) -> Move {
     return [=](auto board) {
-      console::print("'"s + text + "' is not a valid move. Please try again.\n");
+      print("'"s + text + "' is not a valid move. Please try again.\n");
       return board;
     };
   }

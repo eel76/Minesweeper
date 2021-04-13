@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
 
-namespace minesweeper::console {
+namespace minesweeper {
   std::string getline();
 }

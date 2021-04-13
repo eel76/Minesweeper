@@ -8,20 +8,22 @@ add_executable (
   )
 
 target_sources (${PROJECT_NAME} PRIVATE
+  include/ask.h
   include/board.h
   include/cell.h
   include/cells.h
+  include/choose.h
   include/column.h
   include/columns.h
   include/combos.h
+  include/computer.h
   include/concealed.h
-  include/console/ask.h
-  include/console/getline.h
-  include/console/print.h
   include/deadly.h
   include/filter.h
+  include/getline.h
   include/group.h
   include/hazard.h
+  include/human.h
   include/marked.h
   include/mined.h
   include/move/mark.h
@@ -31,14 +33,12 @@ target_sources (${PROJECT_NAME} PRIVATE
   include/negligible.h
   include/neighbor.h
   include/only.h
-  include/player/choose.h
-  include/player/computer.h
-  include/player/human.h
-  include/player/play.h
-  include/player/player.h
+  include/play.h
+  include/player.h
   include/position.h
   include/positions.h
   include/preparation.h
+  include/print.h
   include/reveal.h
   include/revealed.h
   include/row.h
@@ -51,24 +51,24 @@ target_sources (${PROJECT_NAME} PRIVATE
   src/board.cpp
   src/cell.cpp
   src/cells.cpp
+  src/choose.cpp
   src/column.cpp
   src/columns.cpp
   src/combos.cpp
-  src/console/getline.cpp
-  src/console/print.cpp
+  src/computer.cpp
+  src/getline.cpp
   src/move/mark.cpp
   src/move/parse.cpp
   src/move/reveal.cpp
-  src/player/choose.cpp
-  src/player/computer.cpp
-  src/player/play.cpp
   src/filter.cpp
   src/group.cpp
-  src/player/human.cpp
+  src/human.cpp
   src/main.cpp
   src/mined.cpp
+  src/play.cpp
   src/position.cpp
   src/preparation.cpp
+  src/print.cpp
   src/reveal.cpp
   src/row.cpp
   src/rows.cpp
