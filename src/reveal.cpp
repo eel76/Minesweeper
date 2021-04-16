@@ -2,7 +2,7 @@
 #include "cells.h"
 #include "concealed.h"
 #include "negligible.h"
-#include "neighbor.h"
+#include "neighbors.h"
 
 auto minesweeper::toggleMark(Board board, Cells cells) -> Board {
   for (auto cell : cells)
@@ -16,7 +16,7 @@ auto minesweeper::reveal(Board board, Cells cells) -> Board {
     board[position(cell)] = reveal(threat(cell));
 
   for (auto cell : select (isNegligible(), concealed(cells)))
-    board = reveal(board, select (neighborOf(cell), cellsOf(board)));
+    board = reveal(board, neighborsOf(cell, board));
 
   return board;
 }

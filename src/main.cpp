@@ -1,14 +1,20 @@
-#include "mined.h"
 #include "choose.h"
+#include "mined.h"
 #include "play.h"
 #include "preparation.h"
 
 using namespace minesweeper;
 
-int main() {
-  auto const rows    = generateRows(9);
-  auto const columns = generateColumns(9);
-  auto const board   = generateBoard(rows, columns);
+namespace {
+  auto generateBoard() {
+    auto const rows    = generateRows(20);
+    auto const columns = generateColumns(20);
+    auto const board   = generateBoard(rows, columns);
 
-  play(choose(), mined(board, 10));
+    return layMines(board, 50);
+  }
+}
+
+int main() {
+  play(choosePlayer(), generateBoard());
 }

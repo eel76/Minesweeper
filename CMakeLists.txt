@@ -31,7 +31,7 @@ target_sources (${PROJECT_NAME} PRIVATE
   include/move/reveal.h
   include/move.h
   include/negligible.h
-  include/neighbor.h
+  include/neighbors.h
   include/only.h
   include/play.h
   include/player.h
@@ -65,6 +65,7 @@ target_sources (${PROJECT_NAME} PRIVATE
   src/human.cpp
   src/main.cpp
   src/mined.cpp
+  src/neighbors.cpp
   src/play.cpp
   src/position.cpp
   src/preparation.cpp

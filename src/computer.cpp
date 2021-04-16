@@ -6,11 +6,10 @@
 #include "move.h"
 #include "move/mark.h"
 #include "move/reveal.h"
-#include "neighbor.h"
+#include "neighbors.h"
 #include "positions.h"
 #include "revealed.h"
 #include "take.h"
-
 #include <algorithm>
 #include <random>
 
@@ -20,10 +19,6 @@ namespace minesweeper { namespace {
     return size(select(test, cells));
   }
 
-  auto neighborsOf(Cell cell, Board board) {
-    return select(neighborOf(cell), cellsOf(board));
-  }
-
   auto hintsOf(Cell cell, Board board) {
     return select(revealed(), neighborsOf(cell, board));
   }
@@ -31,14 +26,14 @@ namespace minesweeper { namespace {
   Filter threatMarkable(Board board) {
     return [board](auto cell) {
       auto const neighbors = neighborsOf(cell, board);
-      return count(isDeadly(), neighbors) == count (not(revealed()), neighbors);
+      return count(isDeadly(), neighbors) == count(not(revealed()), neighbors);
     };
   }
 
   Filter threatMarked(Board board) {
     return [board](auto cell) {
       auto const neighbors = neighborsOf(cell, board);
-      return count(isDeadly(), neighbors) == count (marked(), neighbors);
+      return count(isDeadly(), neighbors) == count(marked(), neighbors);
     };
   }
 
@@ -66,7 +61,8 @@ namespace minesweeper { namespace {
     if (concealedCells.empty())
       throw;
 
-    if (auto cells = select (take (1), select (markMissing(board), concealedCells)); !cells.empty())
+    if (auto cells = select(take(1), select(markMissing(board), concealedCells));
+        !cells.empty())
       return move::mark(position(cells[0]));
 
     return move::reveal(position(partition(concealedCells, safe(board))[0]));
