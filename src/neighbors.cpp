@@ -26,25 +26,23 @@ namespace minesweeper { namespace {
              down(position),     down(right(position)) };
   }
 
-  auto cellsOf(Positions positions, Board const& board) -> Cells {
-    Cells cells;
+  auto lookupCells(Positions positions, Board const& board) -> Cells {
+    auto lookup = [&](auto position) -> Cell {
+      return { position, board.at(position) };
+    };
 
-    transform(begin(positions), end(positions), std::back_inserter(cells), [&](auto position) {
-      return Cell{ position, board.at(position) };
-    });
+    Cells cells;
+    transform(begin(positions), end(positions), std::back_inserter(cells), lookup);
 
     return cells;
   }
 }}
 
 auto minesweeper::neighborsOf(Cell cell, Board const& board) -> Cells {
+  auto outside = [&](auto position) { return board.count(position) != 1; };
+
   auto neighbors = neighborPositions(position(cell));
+  neighbors.erase(remove_if(begin(neighbors), end(neighbors), outside), end(neighbors));
 
-  neighbors.erase(remove_if(begin(neighbors), end(neighbors),
-                            [&](auto neighbor) {
-                              return board.count(neighbor) != 1;
-                            }),
-                  end(neighbors));
-
-  return cellsOf(neighbors, board);
+  return lookupCells(neighbors, board);
 }
