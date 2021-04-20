@@ -21,7 +21,7 @@ namespace minesweeper::move { namespace {
 
   auto match(std::string_view text, std::string_view pattern) {
     auto match = std::cmatch{};
-    regex_match(&*begin(text), &*end(text), match,
+    regex_match(data(text), data(text) + size (text), match,
                 std::regex{ begin(pattern), end(pattern) });
 
     return match;

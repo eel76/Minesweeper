@@ -58,8 +58,6 @@ namespace minesweeper { namespace {
 
   auto computerMove(Board board) -> Move {
     auto const concealedCells = concealed(cellsOf(board));
-    if (concealedCells.empty())
-      throw;
 
     if (auto cells = select(take(1), select(markMissing(board), concealedCells));
         !cells.empty())
